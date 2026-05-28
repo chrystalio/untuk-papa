@@ -1,0 +1,52 @@
+{
+  "tanda_salib": {
+    "id": "tanda_salib",
+    "title": "Tanda Salib",
+    "prayer": "Dalam nama Bapa, dan Putera, dan Roh Kudus. Amin."
+  },
+  "aku_percaya": {
+    "id": "aku_percaya",
+    "title": "Aku Percaya",
+    "prayer": "Aku percaya akan Allah, Bapa yang Maha Kuasa, pencipta langit dan bumi. Dan akan Yesus Kristus, PuteraNya yang tunggal, Tuhan kita. Yang dikandung dari Roh Kudus, dilahirkan oleh perawan Maria. Yang menderita sengsara, dalam pemerintahan Pontius Pilatus, disalibkan, wafat dan dimakamkan. Yang turun ketempat penantian, pada hari ketiga bangkit dari antara orang mati. Yang naik ke surga, duduk disebelah kanan Allah Bapa yang Maha Kuasa. Dari situ Ia akan datang mengadili orang hidup dan mati. Aku percaya akan Roh Kudus, Gereja Katolik yang Kudus, Persekutuan para Kudus, pengampunan dosa, kebangkitan badan, kehidupan kekal. Amin"
+  },
+  "bapa_kami": {
+    "id": "bapa_kami",
+    "title": "Bapa Kami",
+    "prayer": "Bapa kami yang ada di surga, Dimuliakanlah nama-Mu. Datanglah kerajaan-Mu. Jadilah kehendak-Mu di atas bumi seperti di dalam surga. Berilah kami rezeki pada hari ini,dan ampunilah kesalahan kami, seperti kami pun mengampuni yang bersalah kepada kami. Dan janganlah masukkan kami ke dalam pencobaan,tetapi bebaskanlah kami dari yang jahat. Amin."
+  },
+  "salam_putri": {
+    "id": "salam_putri",
+    "title": "Salam Putri",
+    "prayer": "Salam, Putri Allah Bapa, Salam Maria, penuh rahmat, Tuhan sertamu. Terpujilah engkau di antara wanita, dan terpujilah buah tubuhmu, Yesus. Santa Maria, Bunda Allah, doakanlah kami yang berdosa ini, sekarang dan pada waktu kami mati. Amin."
+  },
+  "salam_bunda": {
+    "id": "salam_bunda",
+    "title": "Salam Bunda",
+    "prayer": "Salam, Bunda Allah Putra, Salam Maria, penuh rahmat, Tuhan sertamu. Terpujilah engkau di antara wanita, dan terpujilah buah tubuhmu, Yesus. Santa Maria, Bunda Allah, doakanlah kami yang berdosa ini, sekarang dan pada waktu kami mati. Amin."
+  },
+  "salam_mempelai": {
+    "id": "salam_mempelai",
+    "title": "Salam Mempelai",
+    "prayer": "Salam, Mempelai Allah Roh Kudus, Salam Maria, penuh rahmat, Tuhan sertamu. Terpujilah engkau di antara wanita, dan terpujilah buah tubuhmu, Yesus. Santa Maria, Bunda Allah, doakanlah kami yang berdosa ini, sekarang dan pada waktu kami mati. Amin."
+  },
+  "salam_maria": {
+    "id": "salam_maria",
+    "title": "Salam Maria",
+    "prayer": "Salam Maria, penuh rahmat, Tuhan sertamu. Terpujilah engkau di antara wanita, dan terpujilah buah tubuhmu, Yesus. Santa Maria, Bunda Allah, doakanlah kami yang berdosa ini, sekarang dan pada waktu kami mati. Amin."
+  },
+  "kemuliaan": {
+    "id": "kemuliaan",
+    "title": "Kemuliaan",
+    "prayer": "Kemuliaan kepada Bapa, dan Putera, dan Roh Kudus. Seperti pada permulaan, sekarang dan selamanya, sampai selamanya. Amin."
+  },
+  "terpujilah": {
+    "id": "terpujilah",
+    "title": "Terpujilah",
+    "prayer": "Terpujilah nama Yesus, Maria, dan Santo Yosef, sekarang dan selama-lamanya. Amin."
+  },
+  "doa_fatima": {
+    "id": "doa_fatima",
+    "title": "Doa Fatima",
+    "prayer": "Ya Yesus yang baik, ampunilah dosa-dosa kami, selamatkanlah kami dari api neraka, dan hantarlah jiwa-jiwa ke dalam surga, terutama mereka yang sangat membutuhkan kerahiman-Mu. Amin."
+  }
+}
