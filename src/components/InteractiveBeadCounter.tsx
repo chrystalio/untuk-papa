@@ -62,20 +62,20 @@ export default function InteractiveBeadCounter({
   return (
     <div className="flex flex-col items-center gap-3">
       {/* 5x2 Bead Grid */}
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid grid-cols-5 gap-2.5">
         {Array.from({ length: TOTAL_BEADS }).map((_, i) => {
           const filled = i < count;
           return (
             <motion.button
               key={i}
               onClick={handleTap}
-              whileTap={{ scale: 0.85 }}
+              whileTap={{ scale: 0.8 }}
               className={`
-                w-8 h-8 rounded-full border-2 transition-all duration-150
+                w-9 h-9 rounded-full border transition-all duration-200 shadow-sm
                 ${
                   filled
-                    ? "bg-navy border-navy shadow-sm"
-                    : "bg-white border-slate-300 hover:border-navy/40"
+                    ? "bg-[var(--color-navy)] border-[var(--color-navy)]"
+                    : "bg-white border-[var(--color-divider)] hover:border-[var(--color-gold-muted)] hover:shadow-md"
                 }
               `}
               aria-label={`Bead ${i + 1}${filled ? " (filled)" : ""}`}
@@ -85,20 +85,19 @@ export default function InteractiveBeadCounter({
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-3">
-        <span className="text-slate-500 text-xs font-medium">
-          {count}/{TOTAL_BEADS}
+      <div className="flex items-center gap-4">
+        <span className="text-xs font-medium text-[var(--color-slate)] tracking-wide">
+          {count} <span className="text-[var(--color-slate-light)]">/</span> {TOTAL_BEADS}
         </span>
-        {count > 0 && (
+        {count > 0 && count < TOTAL_BEADS && (
           <button
             onClick={handleReset}
-            className="text-xs text-slate-400 hover:text-slate-600 transition-colors px-2 py-1 rounded-lg hover:bg-slate-100"
+            className="text-xs text-[var(--color-slate-light)] hover:text-[var(--color-navy)] transition-colors px-2 py-1 rounded-lg hover:bg-[var(--color-ivory-dark)]"
           >
             Reset
           </button>
         )}
       </div>
-
-          </div>
+    </div>
   );
 }

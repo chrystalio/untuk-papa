@@ -58,11 +58,11 @@ export default function RosarioPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="px-6 py-5 border-b border-slate-200/50">
+      <header className="px-6 py-5 border-b border-[var(--color-divider)]">
         <div className="max-w-md mx-auto flex items-center gap-3">
           <Link
             href="/"
-            className="p-2 -ml-2 rounded-lg hover:bg-stone-100 transition-colors"
+            className="p-2 -ml-2 rounded-lg hover:bg-[var(--color-ivory-dark)] transition-colors"
             aria-label="Kembali ke beranda"
           >
             <svg
@@ -70,32 +70,34 @@ export default function RosarioPage() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-5 h-5 text-slate-600"
+              className="w-5 h-5 text-[var(--color-navy)]"
             >
               <path d="M19 12H5M12 5l-7 7 7 7" />
             </svg>
           </Link>
           <div>
-            <h1 className="text-lg font-semibold text-slate-800">Doa Rosario</h1>
-            <p className="text-xs text-slate-500">{dayName}</p>
+            <h1 className="text-lg font-semibold text-[var(--color-navy)] tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
+              Doa Rosario
+            </h1>
+            <p className="text-xs text-[var(--color-slate)]">{dayName}</p>
           </div>
         </div>
       </header>
 
       {/* Peristiwa Banner */}
-      <div className="px-6 py-4 bg-navy/5 border-b border-navy/10">
+      <div className="px-6 py-5 border-b border-[var(--color-divider)]">
         <div className="max-w-md mx-auto">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-navy" />
-            <span className="text-sm font-medium text-navy">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-gold)]" />
+            <span className="text-sm font-medium text-[var(--color-navy)] tracking-wide">
               {peristiwa.peristiwa}
             </span>
           </div>
           {peristiwa.description && (
-            <p className="text-xs text-navy/70 mt-1 ml-4 leading-snug">
+            <p className="text-xs text-[var(--color-slate)] mt-1.5 ml-3.5 leading-relaxed">
               {peristiwa.description}
             </p>
           )}
@@ -120,30 +122,37 @@ export default function RosarioPage() {
                   imagePath={imagePath}
                 />
                 {index < peristiwa.mysteries.length - 1 && (
-                  <div className="flex items-center gap-3 py-4">
-                    <div className="flex-1 h-px bg-slate-200" />
+                  <div className="flex items-center gap-3 py-2">
+                    <div className="flex-1 h-px bg-[var(--color-divider)]" />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="currentColor"
+                      stroke="var(--color-gold)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="w-4 h-4 text-slate-400"
+                      className="w-3.5 h-3.5"
                     >
                       <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
                     </svg>
-                    <div className="flex-1 h-px bg-slate-200" />
+                    <div className="flex-1 h-px bg-[var(--color-divider)]" />
                   </div>
                 )}
               </div>
             );
           })}
 
+          {/* Doa Penutup */}
+          <div className="rounded-2xl border border-[var(--color-divider)] bg-[var(--color-ivory)] px-5 py-4">
+            <p className="text-[var(--color-navy)] text-sm" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
+              {prayers.doa_penutup.prayer}
+            </p>
+          </div>
+
           {/* Tanda Salib Penutup */}
-          <div className="rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-4 text-center">
-            <p className="text-slate-600 text-sm font-medium">
+          <div className="rounded-2xl border border-[var(--color-divider)] bg-[var(--color-ivory)] px-5 py-4 text-center">
+            <p className="text-[var(--color-navy)] text-sm" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
               {prayers.tanda_salib.prayer}
             </p>
           </div>
@@ -151,8 +160,8 @@ export default function RosarioPage() {
       </main>
 
       {/* Footer */}
-      <footer className="px-6 py-6 text-center border-t border-slate-200/50">
-        <p className="text-slate-400 text-xs">
+      <footer className="px-6 py-8 text-center border-t border-[var(--color-divider)]">
+        <p className="text-[var(--color-slate-light)] text-xs italic" style={{ fontFamily: "var(--font-serif)" }}>
           Dikumpulkan dengan cinta untuk Papa
         </p>
       </footer>
