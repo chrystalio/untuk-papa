@@ -1,32 +1,24 @@
-# Deployment Guide — Untuk Papa on Proxmox (app-01)
+# Deployment Guide — Untuk Papa on Proxmox + Portainer
 
-This guide deploys the Next.js PWA to a Proxmox LXC container running behind nginx.
+This guide deploys the Next.js PWA to a Proxmox LXC container using Portainer for container management.
 
 ## Architecture
 
 ```
-Internet → Proxmox (LXC app-01:3000) → nginx (reverse proxy)
+Internet → Proxmox Host → LXC (Portainer Agent) → Docker Container (:3000)
 ```
-
-## Prerequisites
-
-- Proxmox LXC container (Debian/Ubuntu) with Docker installed
-- Domain/subdomain pointing to your home IP
-- nginx running on the host or a separate LXC
 
 ---
 
 ## 1. Prepare the Container
 
-SSH into your Proxmox host, then into the LXC:
+SSH into your Proxmox host and create/get into the LXC:
 
 ```bash
 pct enter <LXC-ID>
-# or
-ssh root@<container-ip>
 ```
 
-Install Docker if not already present:
+Install Docker:
 
 ```bash
 curl -fsSL https://get.docker.com | sh
@@ -40,57 +32,52 @@ mkdir -p /opt/untuk-papa
 
 ---
 
-## 2. Copy the Project
+## 2. Build via Portainer
 
-From your **local machine**, copy the project to the container:
+Since you're using Portainer, the easiest workflow is:
 
-```bash
-# Using rsync (exclude node_modules, .next, and build artifacts)
-rsync -avz --exclude 'node_modules' \
-       --exclude '.next' \
-       --exclude '.git' \
-       --exclude '*.pem' \
-       ./ \
-       root@<container-ip>:/opt/untuk-papa/
-```
+### Option A — Build from source on the LXC
 
-Or from inside the container, clone/pull from your git repo:
+1. Push code to git
+2. In Portainer → **Containers** → **Stacks** or **Images**
+3. Or SSH into LXC and clone:
 
 ```bash
 cd /opt/untuk-papa
-git pull origin main
-npm install
-npm run build
-```
-
----
-
-## 3. Build the Docker Image
-
-From inside the container at `/opt/untuk-papa`:
-
-```bash
-# Build the image (use --target builder to skip builder stage manually)
+git clone https://your-repo.git .
 docker build -t untuk-papa:latest .
 ```
 
-Or build directly from the host using `git` + `docker build`:
+### Option B — Use Portainer Web Editor (Quick Deploy)
 
-```bash
-git clone https://your-repo.git /opt/untuk-papa
-docker build -t untuk-papa:latest /opt/untuk-papa
-docker run -d \
-  --name untuk-papa \
-  -p 127.0.0.1:3000:3000 \
-  --restart unless-stopped \
-  untuk-papa:latest
+1. Open Portainer → **Stacks** → **Add stack**
+2. Paste this `docker-compose.yml` directly:
+
+```yaml
+version: "3.8"
+services:
+  app:
+    build: .
+    container_name: untuk-papa
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
 ```
+
+3. Click **Deploy the stack**
 
 ---
 
-## 4. Configure nginx (on host or another LXC)
+## 3. Reverse Proxy (nginx on Proxmox Host)
 
-Assuming nginx runs on the Proxmox host (`pve`):
+On the Proxmox host (not inside the LXC):
+
+```bash
+apt install nginx certbot python3-certbot-nginx
+```
 
 ```nginx
 # /etc/nginx/sites-available/untuk-papa
@@ -99,7 +86,7 @@ server {
     server_name untuk-papa.yourdomain.com;
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://<LXC-IP>:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -109,25 +96,17 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_cache_bypass $http_upgrade;
     }
-
-    # Optional:SSL termination (uncomment after certbot)
-    # listen 443 ssl http2;
-    # ssl_certificate /etc/letsencrypt/live/untuk-papa/fullchain.pem;
-    # ssl_certificate_key /etc/letsencrypt/live/untuk-papa/privkey.pem;
 }
 ```
 
-Enable the site:
-
 ```bash
 ln -s /etc/nginx/sites-available/untuk-papa /etc/nginx/sites-enabled/
-nginx -t
-systemctl reload nginx
+nginx -t && systemctl reload nginx
 ```
 
 ---
 
-## 5. Set Up SSL (Let's Encrypt)
+## 4. SSL
 
 ```bash
 certbot --nginx -d untuk-papa.yourdomain.com
@@ -135,24 +114,24 @@ certbot --nginx -d untuk-papa.yourdomain.com
 
 ---
 
-## 6. Update ( redeploy)
+## 5. Update / Redeploy via Portainer
+
+1. Push code changes to git
+2. SSH into LXC:
 
 ```bash
-cd /opt/untuk-papa
-git pull origin main
+cd /opt/untuk-papa && git pull origin main
 docker build -t untuk-papa:latest . --no-cache
 docker stop untuk-papa && docker rm untuk-papa
-docker run -d \
-  --name untuk-papa \
-  -p 127.0.0.1:3000:3000 \
-  --restart unless-stopped \
-  untuk-papa:latest
+docker run -d --name untuk-papa -p 3000:3000 --restart unless-stopped untuk-papa:latest
 ```
+
+Or in Portainer: **Stacks → pilih stack → Editor → re-deploy**.
 
 ---
 
 ## Notes
 
-- PWA service worker only builds for **production** (`NODE_ENV=production`). On local dev it won't register.
-- The `next-pwa` plugin generates service worker files at `public/sw.js` and `public/workbox-*.js`.
-- Default `next dev` uses Turbopack. Production build (`next build`) uses Webpack.
+- PWA service worker only registers in **production** (`NODE_ENV=production`).
+- The container runs as non-root user `nextjs` (uid 1001).
+- `next.config.ts` has `output: "standalone"` — required for Docker.
