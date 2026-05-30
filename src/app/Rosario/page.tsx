@@ -1,6 +1,7 @@
 import prayers from "@/data/prayers.json";
 import PeristiwaSection from "@/components/PeristiwaSection";
 import IntroSection from "@/components/IntroSection";
+import CollapsiblePrayer from "@/components/CollapsiblePrayer";
 import Link from "next/link";
 import peristiwaData from "@/data/peristiwa.json";
 
@@ -146,11 +147,10 @@ export default function RosarioPage() {
           })}
 
           {/* Doa Penutup */}
-          <div className="rounded-2xl border border-[var(--color-divider)] bg-[var(--color-ivory)] px-5 py-4">
-            <p className="text-[var(--color-navy)] text-sm" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
-              {prayers.doa_penutup.prayer}
-            </p>
-          </div>
+          <CollapsiblePrayer
+            title="Doa Penutup"
+            prayer={prayers.doa_penutup.prayer}
+          />
 
           {/* Tanda Salib Penutup */}
           <div className="rounded-2xl border border-[var(--color-divider)] bg-[var(--color-ivory)] px-5 py-4 text-center">

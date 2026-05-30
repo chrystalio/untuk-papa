@@ -54,10 +54,12 @@ export default function CollapsiblePrayer({
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 pt-2 border-t border-[var(--color-divider)]">
-              <p className="text-[var(--color-slate)] text-sm leading-relaxed" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
-                {prayer}
-              </p>
+            <div className="px-5 pb-5 pt-3 border-t border-[var(--color-divider)] space-y-3">
+              {prayer.split("\n").map((para, i) => (
+                <p key={i} className="text-[var(--color-slate)] text-sm leading-relaxed" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
+                  {para}
+                </p>
+              ))}
             </div>
           </motion.div>
         )}
