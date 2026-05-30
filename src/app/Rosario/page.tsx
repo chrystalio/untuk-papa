@@ -12,6 +12,8 @@ const PAPA_PRAYERS = [
   "Ya Allah Pencipta Semesta, pada peristiwa ini kami memohon agar jiwa Bapak Anselmus Rudi beroleh sukacita abadi. Persatukanlah ia dalam kebahagiaan surgawi bersama para malaikat dan semua orang kudus-Mu, untuk memuji dan memuliakan nama-Mu selama-lamanya.",
 ];
 
+export const dynamic = "force-dynamic";
+
 function getDayKey(dayOfWeek: number): string {
   // Senin = Gembira, Selasa = Sedih, Rabu = Mulia, Kamis = Terang, Jumat = Sedih, Sabtu = Gembira, Minggu = Mulia
   switch (dayOfWeek) {
